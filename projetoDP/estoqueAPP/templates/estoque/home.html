@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Doces da Praia - Estoque</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+
+<body>
+    <div class="estoque-container">
+        <div class="estoque-card">
+            <h1>Estoque - Doces da Praia {{ nome }}</h1>
+
+            <div class="table-responsive">
+                <table class="table table-dark table-striped table-bordered align-middle">
+                    <thead class="table-light text-center">
+                        <tr>
+                            <th>ID</th>
+                            <th>Nome</th>
+                            <th>Descrição</th>
+                            <th>Em estoque</th>
+                            <th>Data de Criação</th>
+                            <th colspan="2">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for estoques in estoque %}
+                        <tr>
+                            <td>{{ estoques.id }}</td>
+                            <td>{{ estoques.nome }}</td>
+                            <td>{{ estoques.descricao }}</td>
+                            <td>{% if estoques.em_estoque %} Sim {% else %} Não {% endif %}</td>
+                            <td>{{ estoques.data_criacao }}</td>
+                            <td><a class="btn btn-warning btn-sm"
+                                    href="{% url 'estoque:editar' estoques.id %}">Editar</a></td>
+                            <td><a class="btn btn-danger btn-sm"
+                                    href="{% url 'estoque:remover' estoques.id %}">Remover</a></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="text-center mt-4">
+                <a href="{% url 'estoque:adicionar' %}" class="btn btn-success btn-lg">Adicionar Produto</a>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
